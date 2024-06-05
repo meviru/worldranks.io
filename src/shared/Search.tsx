@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import searchImage from "../../public/Search.svg";
 
 const InputWrapper = styled.div`
@@ -15,7 +15,9 @@ const SearchIcon = styled.span`
     width: 24px;
     height: 24px;
     transform: translateY(-50%);
-    background: url(${searchImage}) no-repeat center center/contain;
+    ${() => css`
+        background: url(${searchImage}) no-repeat center center/contain;
+    `}
 `
 
 const Input = styled.input`

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import iconCheck from "../../public/Done_round.svg";
 
 const CustomCheckbox = styled.div`
@@ -34,7 +34,9 @@ const CheckboxLabel = styled.label`
         width: 24px;
         height: 24px;
         transition: 0.25s ease;
+        ${() => css`        
         background: url(${iconCheck}) no-repeat center center/22px; 
+    `}
     }
 `
 

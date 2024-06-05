@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import arrowDown from "../../public/Expand_down.svg";
 
 const Select = styled.select`
@@ -7,12 +7,14 @@ const Select = styled.select`
     width: 100%;
     height: 42px;
     padding: 0 12px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
     border-radius: 12px;
     border: 2px solid #282B30;
-    background: transparent url(${arrowDown}) no-repeat center right 12px/16px;
+    ${() => css`
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: transparent url(${arrowDown}) no-repeat center right 12px/16px;
+    `}
 `
 
 const Option = styled.option`
