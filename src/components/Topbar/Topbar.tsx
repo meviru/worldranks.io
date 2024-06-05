@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Container } from "../../shared/Container";
 import Search from "../../shared/Search";
 
 const TopbarContainer = styled.div`
