@@ -14,6 +14,7 @@ const Tag = styled.span`
     font-weight: 500;
     padding: 8px 12px;
     border-radius: 12px;
+    transition: 0.25s ease;
     &.selected {
         color: #D2D5DA;
         background-color: #282B30;

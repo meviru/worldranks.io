@@ -2,9 +2,9 @@ import styled from 'styled-components'
 import Hero from './components/Hero/Hero'
 import { GlobalStyles } from './styles/Global'
 import { Container } from './shared/Container'
-import Search from './shared/Search'
 import Topbar from './components/Topbar/Topbar'
 import Sidebar from './components/Sidebar/Sidebar'
+import TableWrapper from './components/TableWrapper/TableWrapper'
 
 const Main = styled.div`
     margin-top: -60px;
@@ -33,6 +33,7 @@ const App = () => {
             <Topbar />
             <FlexWrapper>
               <Sidebar />
+              <TableWrapper />
             </FlexWrapper>
           </MainContent>
         </Container>
