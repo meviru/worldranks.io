@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import searchImage from "../assets/Search.svg";
+import searchImage from "../../public/Search.svg";
 
 const InputWrapper = styled.div`
     position: relative;

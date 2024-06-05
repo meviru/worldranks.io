@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import arrowDown from "../assets/Expand_down.svg";
+import arrowDown from "../../public/Expand_down.svg";
 
 const Select = styled.select`
     cursor: pointer;
