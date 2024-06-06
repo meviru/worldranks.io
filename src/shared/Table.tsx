@@ -41,7 +41,12 @@ const Table = () => {
     const [countries, setCountries] = useState<any[]>([]);
 
     const getCountries = () => {
-        fetch('https://restcountries.com/v3.1/all')
+        fetch('https://restcountries.com/v3.1/all', {
+            method: 'GET',
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        })
             .then(response => response.json())
             .then(data => {
                 setCountries(data);
