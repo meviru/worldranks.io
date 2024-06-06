@@ -67,7 +67,7 @@ const Skeleton = ({ count }: any) => {
     return <>
         {
             Array(count).fill(1).map((skeleton: number, index: number) => ((
-                <SkeletonWrapper key={index}>
+                <SkeletonWrapper key={index} id={`skeleton-${index + skeleton}`}>
                     <SkeletonBlock className="skeleton-flag">
                         <SkeletonFlag />
                     </SkeletonBlock>
