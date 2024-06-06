@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Skeleton from "./Skeleton";
 
 const Column = styled.div`
     flex: 1;
@@ -39,8 +40,10 @@ const FlagImg = styled.img`
 
 const Table = () => {
     const [countries, setCountries] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const getCountries = () => {
+        setIsLoading(true);
         fetch('https://restcountries.com/v3.1/all', {
             method: 'GET',
             headers: {
@@ -50,6 +53,7 @@ const Table = () => {
             .then(response => response.json())
             .then(data => {
                 setCountries(data);
+                setIsLoading(false);
             })
             .catch(error => {
                 console.log(error);
@@ -69,7 +73,7 @@ const Table = () => {
             <Column>Region</Column>
         </TableHeader>
 
-        {(countries && countries.length > 0) && countries.map((country: any, index: number) => (
+        {!isLoading ? (countries && countries.length > 0) && countries.map((country: any, index: number) => (
             <TableRow key={index}>
                 <Column className="column-flag">
                     <FlagImg src={country.flags.svg} alt={country.flags.alt} title={country.flags.alt} />
@@ -80,6 +84,7 @@ const Table = () => {
                 <Column>{country.region}</Column>
             </TableRow>
         ))
+            : <Skeleton count={10} />
         }
     </>
 }
