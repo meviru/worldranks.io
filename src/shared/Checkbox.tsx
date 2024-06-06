@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import iconCheck from "../../public/Done_round.svg";
+import iconCheck from "/Done_round.svg";
 
 const CustomCheckbox = styled.div`
     position: relative;
