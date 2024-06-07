@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { Country } from "../models";
+import { Country, Children } from "../models";
 
 interface CountryContextType {
     countryList: Country[];
@@ -13,7 +13,7 @@ export const CountryContext = createContext<CountryContextType>({
     fetchCountries: () => { },
 });
 
-const CountryProvider = ({ children }: any) => {
+const CountryProvider = ({ children }: Children) => {
     const [countryList, setCountryList] = useState<Country[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 

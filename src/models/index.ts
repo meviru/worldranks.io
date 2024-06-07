@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface Country {
     name: string;
     population: number;
@@ -13,4 +15,8 @@ export interface CountryListContextType {
     filterByRegion: () => void;
     filterByStatus: () => void;
     searchCountry: () => void;
+}
+
+export interface Children {
+    children: ReactNode
 }
