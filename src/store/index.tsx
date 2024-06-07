@@ -4,13 +4,17 @@ import { Constants } from "../constants";
 
 export const CountryContext = createContext<CountryContextType>({
     countryList: [],
+    regionList: [],
     isLoading: false,
     sortCountries: () => { },
+    filterByRegion: () => { },
 });
 
 const CountryProvider = ({ children }: Children) => {
     const [countryList, setCountryList] = useState<Country[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const [regionList, setRegionList] = useState([]);
 
     const fetchCountries = async () => {
         setIsLoading(true);
@@ -18,6 +22,10 @@ const CountryProvider = ({ children }: Children) => {
             const response = await fetch('https://countryinfoapi.com/api/countries');
             const data = await response.json();
             setCountryList(data);
+
+            const uniqueRegions: any = [...new Set(data.map((country: any) => country.region))];
+            setRegionList(uniqueRegions);
+
         } catch (error) {
             console.error(error);
         } finally {
@@ -43,11 +51,16 @@ const CountryProvider = ({ children }: Children) => {
         }
     }
 
+    const filterByRegion = (region: string) => {
+        const countriesByRegion = [...countryList].filter((country) => country.region === region);
+        setCountryList(countriesByRegion);
+    }
+
     useEffect(() => {
         fetchCountries();
     }, []);
 
-    return <CountryContext.Provider value={{ countryList, isLoading, sortCountries }}>
+    return <CountryContext.Provider value={{ countryList, isLoading, regionList, sortCountries, filterByRegion }}>
         {children}
     </CountryContext.Provider>
 }

@@ -10,8 +10,10 @@ export interface Country {
 
 export interface CountryContextType {
     countryList: Country[];
+    regionList: any[];
     isLoading: boolean;
     sortCountries: (value: number) => void;
+    filterByRegion: (value: string) => void;
 }
 
 export interface CountryListContextType {

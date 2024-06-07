@@ -15,6 +15,7 @@ const Column = styled.div`
 const TableHeader = styled.div`
     display: flex;
     flex-wrap: wrap;
+    padding-right: 8px;
     padding-bottom: 16px;
     border-bottom: 2px solid #282B30;
 `

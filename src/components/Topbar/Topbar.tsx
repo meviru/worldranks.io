@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Search from "../../shared/Search";
+import { useContext } from "react";
+import { CountryContext } from "../../store";
 
 const TopbarContainer = styled.div`
     margin-bottom: 36px;
@@ -17,10 +19,11 @@ const TopbarSearchCount = styled.div`
 `
 
 const Topbar = () => {
+    const { countryList } = useContext(CountryContext);
     return <>
         <TopbarContainer>
             <TopbarWrapper>
-                <TopbarSearchCount>Found 234 countries</TopbarSearchCount>
+                <TopbarSearchCount>Found {countryList.length} countries</TopbarSearchCount>
                 <Search />
             </TopbarWrapper>
         </TopbarContainer >

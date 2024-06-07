@@ -1,4 +1,6 @@
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import { CountryContext } from "../store";
 
 const TagsWrapper = styled.div`
     display: flex;
@@ -22,14 +24,23 @@ const Tag = styled.span`
 `
 
 const Tags = () => {
+    const [selectedTags, setSelectedTags] = useState<any[]>([]);
+    const { regionList, filterByRegion } = useContext(CountryContext);
+
+    const onSelect = (region: string, index: number) => {
+        if (selectedTags.includes(index)) {
+            setSelectedTags(selectedTags.filter(tagIndex => tagIndex !== index));
+        } else {
+            setSelectedTags([...selectedTags, index]);
+        }
+        filterByRegion(region);
+    }
+
     return <>
         <TagsWrapper>
-            <Tag className="selected">Americas</Tag>
-            <Tag>Antarctic</Tag>
-            <Tag className="selected">Africa</Tag>
-            <Tag className="selected">Asia</Tag>
-            <Tag className="selected">Europe</Tag>
-            <Tag>Oceania</Tag>
+            {(regionList && regionList.length > 0) && regionList.map((region, index) =>
+                <Tag className={`${selectedTags.includes(index) ? 'selected' : ''}`} key={index} onClick={() => onSelect(region, index)}>{region}</Tag>
+            )}
         </TagsWrapper>
     </>
 }
