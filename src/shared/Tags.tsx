@@ -24,14 +24,14 @@ const Tag = styled.span`
 `
 
 const Tags = () => {
-    const [selectedTags, setSelectedTags] = useState<any[]>([]);
+    const [selectedRegion, setSelectedRegion] = useState<any[]>([]);
     const { regionList, filterByRegion } = useContext(CountryContext);
 
     const onSelect = (region: string, index: number) => {
-        if (selectedTags.includes(index)) {
-            setSelectedTags(selectedTags.filter(tagIndex => tagIndex !== index));
+        if (selectedRegion.includes(index)) {
+            setSelectedRegion(selectedRegion.filter(tagIndex => tagIndex !== index));
         } else {
-            setSelectedTags([...selectedTags, index]);
+            setSelectedRegion([...selectedRegion, index]);
         }
         filterByRegion(region);
     }
@@ -39,7 +39,7 @@ const Tags = () => {
     return <>
         <TagsWrapper>
             {(regionList && regionList.length > 0) && regionList.map((region, index) =>
-                <Tag className={`${selectedTags.includes(index) ? 'selected' : ''}`} key={index} onClick={() => onSelect(region, index)}>{region}</Tag>
+                <Tag className={`${selectedRegion.includes(index) ? 'selected' : ''}`} key={index} onClick={() => onSelect(region, index)}>{region}</Tag>
             )}
         </TagsWrapper>
     </>

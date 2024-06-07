@@ -10,6 +10,8 @@ export const CountryContext = createContext<CountryContextType>({
     filterByRegion: () => { },
 });
 
+let ogCountries: any = [];
+
 const CountryProvider = ({ children }: Children) => {
     const [countryList, setCountryList] = useState<Country[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -20,10 +22,10 @@ const CountryProvider = ({ children }: Children) => {
         setIsLoading(true);
         try {
             const response = await fetch('https://countryinfoapi.com/api/countries');
-            const data = await response.json();
-            setCountryList(data);
+            ogCountries = await response.json();
+            setCountryList(ogCountries);
 
-            const uniqueRegions: any = [...new Set(data.map((country: any) => country.region))];
+            const uniqueRegions: any = [...new Set(ogCountries.map((country: any) => country.region))];
             setRegionList(uniqueRegions);
 
         } catch (error) {
@@ -36,15 +38,15 @@ const CountryProvider = ({ children }: Children) => {
     const sortCountries = (value: number) => {
         switch (value) {
             case Constants.SORTBY.POPULATION:
-                const sortByPopulationList = [...countryList].sort((a, b) => a.population - b.population).reverse()
+                const sortByPopulationList = [...ogCountries].sort((a, b) => a.population - b.population).reverse()
                 setCountryList(sortByPopulationList);
                 break;
             case Constants.SORTBY.NAME:
-                const sortByNameList = [...countryList].sort((a, b) => { return (a.name > b.name ? 1 : (a.name === b.name ? 0 : -1)) })
+                const sortByNameList = [...ogCountries].sort((a, b) => { return (a.name > b.name ? 1 : (a.name === b.name ? 0 : -1)) })
                 setCountryList(sortByNameList);
                 break;
             case Constants.SORTBY.AREA:
-                const sortByAreaList = [...countryList].sort((a, b) => a.area - b.area).reverse()
+                const sortByAreaList = [...ogCountries].sort((a, b) => a.area - b.area).reverse()
                 setCountryList(sortByAreaList);
                 break;
 
@@ -52,7 +54,7 @@ const CountryProvider = ({ children }: Children) => {
     }
 
     const filterByRegion = (region: string) => {
-        const countriesByRegion = [...countryList].filter((country) => country.region === region);
+        const countriesByRegion = [...ogCountries].filter((country) => country.region === region);
         setCountryList(countriesByRegion);
     }
 
