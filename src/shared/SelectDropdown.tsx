@@ -24,7 +24,7 @@ const Option = styled.option`
 const SelectDropdown = () => {
 
     const onRegionSelect = (event: any) => {
-        
+        console.log(event);
     }
 
     return <>
