@@ -22,12 +22,17 @@ const Option = styled.option`
 `
 
 const SelectDropdown = () => {
+
+    const onRegionSelect = (event: any) => {
+        
+    }
+
     return <>
-        <Select>
-            <Option>Population</Option>
-            <Option>Name</Option>
-            <Option>Region</Option>
-            <Option>Area</Option>
+        <Select onChange={() => onRegionSelect(event)}>
+            <Option value="population">Population</Option>
+            <Option value="name">Name</Option>
+            <Option value="region">Region</Option>
+            <Option value="area">Area</Option>
         </Select>
     </>
 }

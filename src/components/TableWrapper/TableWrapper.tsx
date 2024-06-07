@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Table from "../../shared/Table";
+import { useContext } from "react";
+import { CountryContext } from "../../store";
 
 const TableContainer = styled.div`
     flex-grow: 1;
@@ -7,9 +9,10 @@ const TableContainer = styled.div`
 `
 
 const TableWrapper = () => {
+    const { countryList, isLoading } = useContext(CountryContext);
     return <>
         <TableContainer>
-            <Table />
+            <Table isLoading={isLoading} countries={countryList} />
         </TableContainer>
     </>
 }
