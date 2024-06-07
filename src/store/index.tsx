@@ -1,16 +1,11 @@
 import { createContext, useEffect, useState } from "react";
-import { Country, Children } from "../models";
-
-interface CountryContextType {
-    countryList: Country[];
-    isLoading: boolean;
-    fetchCountries: () => void;
-}
+import { Country, Children, CountryContextType } from "../models";
+import { Constants } from "../constants";
 
 export const CountryContext = createContext<CountryContextType>({
     countryList: [],
     isLoading: false,
-    fetchCountries: () => { },
+    sortCountries: () => { },
 });
 
 const CountryProvider = ({ children }: Children) => {
@@ -30,11 +25,29 @@ const CountryProvider = ({ children }: Children) => {
         }
     };
 
+    const sortCountries = (value: number) => {
+        switch (value) {
+            case Constants.SORTBY.POPULATION:
+                const sortByPopulationList = [...countryList].sort((a, b) => a.population - b.population).reverse()
+                setCountryList(sortByPopulationList);
+                break;
+            case Constants.SORTBY.NAME:
+                const sortByNameList = [...countryList].sort((a, b) => { return (a.name > b.name ? 1 : (a.name === b.name ? 0 : -1)) })
+                setCountryList(sortByNameList);
+                break;
+            case Constants.SORTBY.AREA:
+                const sortByAreaList = [...countryList].sort((a, b) => a.area - b.area).reverse()
+                setCountryList(sortByAreaList);
+                break;
+
+        }
+    }
+
     useEffect(() => {
         fetchCountries();
     }, []);
 
-    return <CountryContext.Provider value={{ countryList, isLoading, fetchCountries }}>
+    return <CountryContext.Provider value={{ countryList, isLoading, sortCountries }}>
         {children}
     </CountryContext.Provider>
 }

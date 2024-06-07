@@ -47,6 +47,20 @@ select {
     color: #6C727F;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #282B30;
+  border-radius: 5px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #6C727F; 
+  border-radius: 5px;
+}
+
 .Toastify__toast-container {
     width: 375px;
     max-width: 100%;

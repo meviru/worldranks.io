@@ -15,7 +15,6 @@ const Column = styled.div`
 const TableHeader = styled.div`
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 16px;
     padding-bottom: 16px;
     border-bottom: 2px solid #282B30;
 `
@@ -23,6 +22,7 @@ const TableRow = styled.div`
     cursor: pointer;
     display: flex; 
     flex-wrap: wrap;
+    margin-top: 16px;
     align-items: center;
     border-radius: 3px;
     & + & {
@@ -43,6 +43,11 @@ const FlagImg = styled.img`
     border-radius: 3px;
 `
 
+const TableRowGroup = styled.div`
+    max-height: 720px;
+    overflow-y: auto;
+`
+
 const Table = ({ countries, isLoading }: any) => {
     return <>
         <TableHeader>
@@ -52,20 +57,21 @@ const Table = ({ countries, isLoading }: any) => {
             <Column>Area (km²)</Column>
             <Column>Region</Column>
         </TableHeader>
-
-        {!isLoading ? (countries && countries.length > 0) && countries.map((country: any, index: number) => (
-            <TableRow key={index}>
-                <Column className="column-flag">
-                    <FlagImg src={country.flag} alt={country.name} title={country.name} />
-                </Column>
-                <Column>{country.name}</Column>
-                <Column>{country.population}</Column>
-                <Column>{country.area}</Column>
-                <Column>{country.region}</Column>
-            </TableRow>
-        ))
-            : <Skeleton count={10} />
-        }
+        <TableRowGroup>
+            {!isLoading ? (countries && countries.length > 0) && countries.map((country: any, index: number) => (
+                <TableRow key={index}>
+                    <Column className="column-flag">
+                        <FlagImg src={country.flag} alt={country.name} title={country.name} />
+                    </Column>
+                    <Column>{country.name}</Column>
+                    <Column>{country.population}</Column>
+                    <Column>{country.area}</Column>
+                    <Column>{country.region}</Column>
+                </TableRow>
+            ))
+                : <Skeleton count={10} />
+            }
+        </TableRowGroup>
     </>
 }
 

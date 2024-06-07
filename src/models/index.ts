@@ -8,6 +8,12 @@ export interface Country {
     flags: string;
 }
 
+export interface CountryContextType {
+    countryList: Country[];
+    isLoading: boolean;
+    sortCountries: (value: number) => void;
+}
+
 export interface CountryListContextType {
     countryList: Country[];
     getCountries: (countries: Country[]) => void;

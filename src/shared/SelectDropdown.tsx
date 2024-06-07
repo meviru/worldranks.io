@@ -1,5 +1,8 @@
 import styled, { css } from "styled-components";
 import arrowDown from "/Expand_down.svg";
+import { ChangeEvent, useContext } from "react";
+import { CountryContext } from "../store";
+import { Constants } from "../constants";
 
 const Select = styled.select`
     cursor: pointer;
@@ -22,17 +25,16 @@ const Option = styled.option`
 `
 
 const SelectDropdown = () => {
-
-    const onRegionSelect = (event: any) => {
-        console.log(event);
+    const { sortCountries } = useContext(CountryContext);
+    const onRegionSelect = (event: ChangeEvent) => {
+        sortCountries(+(event.target as HTMLSelectElement).value);
     }
 
     return <>
-        <Select onChange={() => onRegionSelect(event)}>
-            <Option value="population">Population</Option>
-            <Option value="name">Name</Option>
-            <Option value="region">Region</Option>
-            <Option value="area">Area</Option>
+        <Select onChange={onRegionSelect}>
+            <Option value={Constants.SORTBY.POPULATION}>Population</Option>
+            <Option value={Constants.SORTBY.NAME}>Name</Option>
+            <Option value={Constants.SORTBY.AREA}>Area</Option>
         </Select>
     </>
 }
