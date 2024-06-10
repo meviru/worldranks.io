@@ -53,8 +53,8 @@ const CountryProvider = ({ children }: Children) => {
         }
     }
 
-    const filterByRegion = (region: string) => {
-        const countriesByRegion = [...ogCountries].filter((country) => country.region === region);
+    const filterByRegion = (selectedRegions: string) => {
+        const countriesByRegion = [...ogCountries].filter((country) => selectedRegions.includes(country.region));
         setCountryList(countriesByRegion);
     }
 

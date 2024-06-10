@@ -23,17 +23,23 @@ const Tag = styled.span`
     }
 `
 
+
+let includedRegions: any = [];
+
 const Tags = () => {
     const [selectedRegion, setSelectedRegion] = useState<any[]>([]);
     const { regionList, filterByRegion } = useContext(CountryContext);
 
+
     const onSelect = (region: string, index: number) => {
         if (selectedRegion.includes(index)) {
             setSelectedRegion(selectedRegion.filter(tagIndex => tagIndex !== index));
+            includedRegions = includedRegions.filter((regItem: any) => regItem !== region)
         } else {
+            includedRegions = [...includedRegions, region];
             setSelectedRegion([...selectedRegion, index]);
         }
-        filterByRegion(region);
+        filterByRegion(includedRegions);
     }
 
     return <>
