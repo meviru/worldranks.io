@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { CountryContext } from "../store";
 
@@ -17,6 +17,7 @@ const Tag = styled.span`
     padding: 8px 12px;
     border-radius: 12px;
     transition: 0.25s ease;
+    &:hover,
     &.selected {
         color: #D2D5DA;
         background-color: #282B30;
@@ -24,10 +25,10 @@ const Tag = styled.span`
 `
 
 
-let includedRegions: any = [];
+let includedRegions: any = ["Asia", "Americas", "Africa", "Europe"];
 
 const Tags = () => {
-    const [selectedRegion, setSelectedRegion] = useState<any[]>([]);
+    const [selectedRegion, setSelectedRegion] = useState<any[]>([0, 1, 2, 3]);
     const { regionList, filterByRegion } = useContext(CountryContext);
 
 
@@ -41,6 +42,10 @@ const Tags = () => {
         }
         filterByRegion(includedRegions);
     }
+
+    useEffect(() => {
+        filterByRegion(includedRegions);
+    }, [regionList]);
 
     return <>
         <TagsWrapper>

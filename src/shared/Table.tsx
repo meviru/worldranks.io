@@ -44,10 +44,7 @@ const FlagImg = styled.img`
     border-radius: 3px;
 `
 
-const TableRowGroup = styled.div`
-    max-height: 720px;
-    overflow-y: auto;
-`
+const TableRowGroup = styled.div``
 
 const Table = ({ countries, isLoading }: any) => {
     return <>

@@ -14,6 +14,7 @@ export interface CountryContextType {
     isLoading: boolean;
     sortCountries: (value: number) => void;
     filterByRegion: (value: string) => void;
+    filterByStatus: (value: string | null) => void;
 }
 
 export interface CountryListContextType {
