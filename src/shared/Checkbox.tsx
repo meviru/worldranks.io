@@ -57,10 +57,10 @@ const CustomCheckboxInput = styled.input`
         }
     }
 `
-const Checkbox = ({ label, id }: any) => {
+const Checkbox = ({ label, id, onCheckboxChange }: any) => {
     return <>
         <CustomCheckbox>
-            <CustomCheckboxInput id={id} type="checkbox" />
+            <CustomCheckboxInput onChange={() => onCheckboxChange(event)} id={id} type="checkbox" />
             <CheckboxLabel htmlFor={id}>{label}</CheckboxLabel>
         </CustomCheckbox>
     </>

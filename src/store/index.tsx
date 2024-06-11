@@ -8,6 +8,7 @@ export const CountryContext = createContext<CountryContextType>({
     isLoading: false,
     sortCountries: () => { },
     filterByRegion: () => { },
+    filterByStatus: () => { },
 });
 
 let ogCountries: any = [];
@@ -58,11 +59,20 @@ const CountryProvider = ({ children }: Children) => {
         setCountryList(countriesByRegion);
     }
 
+    const filterByStatus = (status: string | null) => {
+        if (status) {
+            const countriesByStatus = [...ogCountries].filter((country) => status.includes(Constants.CHECKBOX.UN) ? country.unMember : !country.unMember);
+            setCountryList(countriesByStatus);
+        } else {
+            setCountryList(ogCountries);
+        }
+    }
+
     useEffect(() => {
         fetchCountries();
     }, []);
 
-    return <CountryContext.Provider value={{ countryList, isLoading, regionList, sortCountries, filterByRegion }}>
+    return <CountryContext.Provider value={{ countryList, isLoading, regionList, sortCountries, filterByRegion, filterByStatus }}>
         {children}
     </CountryContext.Provider>
 }
