@@ -10,6 +10,10 @@ const Column = styled.div`
     &.column-flag {
         flex: 0 0 95px;
     }
+    &.w-100 {
+        flex: 0 0 100%;
+        text-align: center;
+    }
 `
 
 const TableHeader = styled.div`
@@ -56,18 +60,21 @@ const Table = ({ countries, isLoading }: any) => {
             <Column>Region</Column>
         </TableHeader>
         <TableRowGroup>
-            {!isLoading ? (countries && countries.length > 0) && countries.map((country: any, index: number) => (
-                <TableRow key={index}>
-                    <Column className="column-flag">
-                        <FlagImg src={country.flag} alt={country.name} title={country.name} />
-                    </Column>
-                    <Column>{country.name}</Column>
-                    <Column>{country.population}</Column>
-                    <Column>{country.area}</Column>
-                    <Column>{country.region}</Column>
-                </TableRow>
-            ))
-                : <Skeleton count={10} />
+            {isLoading ? <Skeleton count={10} /> :
+                (countries && countries.length > 0) ? countries.map((country: any, index: number) => (
+                    <TableRow key={index}>
+                        <Column className="column-flag">
+                            <FlagImg src={country.flag} alt={country.name} title={country.name} />
+                        </Column>
+                        <Column>{country.name}</Column>
+                        <Column>{country.population}</Column>
+                        <Column>{country.area}</Column>
+                        <Column>{country.region}</Column>
+                    </TableRow>
+                ))
+                    : <TableRow>
+                        <Column className="w-100">No records found.</Column>
+                    </TableRow>
             }
         </TableRowGroup>
     </>
