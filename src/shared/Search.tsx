@@ -1,5 +1,8 @@
 import styled, { css } from "styled-components";
 import searchImage from "/Search.svg";
+import { useContext, useEffect, useState } from "react";
+import { CountryContext } from "../store";
+import { useDebounce } from "use-debounce";
 
 const InputWrapper = styled.div`
     position: relative;
@@ -31,10 +34,21 @@ const Input = styled.input`
 `
 
 const Search = () => {
+    const { searchCountries } = useContext(CountryContext);
+    const [text, setText] = useState("");
+    const [searchValue] = useDebounce(text, 600);
+
+    useEffect(() => {
+        searchCountries(searchValue);
+    }, [searchValue])
+
     return <>
         <InputWrapper>
             <SearchIcon />
-            <Input type="text" placeholder="Search by Name, Region, Subregion" />
+            <Input type="text" onChange={(e) => {
+                setText(e.target.value);
+            }}
+                placeholder="Search by Name, Region, Subregion" />
         </InputWrapper>
     </>;
 }

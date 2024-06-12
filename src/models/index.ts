@@ -6,6 +6,7 @@ export interface Country {
     area: number;
     region: string;
     flags: string;
+    subregion: string;
 }
 
 export interface CountryContextType {
@@ -15,6 +16,7 @@ export interface CountryContextType {
     sortCountries: (value: number) => void;
     filterByRegion: (value: string) => void;
     filterByStatus: (value: string[]) => void;
+    searchCountries: (value: string) => void;
 }
 
 export interface CountryListContextType {
