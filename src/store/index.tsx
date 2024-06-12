@@ -53,9 +53,13 @@ const CountryProvider = ({ children }: Children) => {
         }
     }
 
-    const filterByRegion = (selectedRegions: string) => {
-        const countriesByRegion = [...listOfCountries].filter((country) => selectedRegions.includes(country.region));
-        setCountryList(countriesByRegion);
+    const filterByRegion = (selectedRegions: string[]) => {
+        if (selectedRegions.length > 0) {
+            const countriesByRegion = [...listOfCountries].filter((country) => selectedRegions.includes(country.region));
+            setCountryList(countriesByRegion);
+        } else {
+            setCountryList(listOfCountries);
+        }
     }
 
     const filterByStatus = (statuses: string[]) => {

@@ -14,7 +14,7 @@ export interface CountryContextType {
     regionList: any[];
     isLoading: boolean;
     sortCountries: (value: number) => void;
-    filterByRegion: (value: string) => void;
+    filterByRegion: (value: string[]) => void;
     filterByStatus: (value: string[]) => void;
     searchCountries: (value: string) => void;
 }
