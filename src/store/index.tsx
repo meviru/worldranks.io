@@ -11,24 +11,21 @@ export const CountryContext = createContext<CountryContextType>({
     filterByStatus: () => { },
 });
 
-let ogCountries: any = [];
+let listOfCountries: any = [];
+let listOfRegions: any = ["Americas", "Antarctic", "Africa", "Asia", "Europe", "Oceania"];
 
 const CountryProvider = ({ children }: Children) => {
     const [countryList, setCountryList] = useState<Country[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const [regionList, setRegionList] = useState([]);
+    const [regionList] = useState(listOfRegions);
 
     const fetchCountries = async () => {
         setIsLoading(true);
         try {
             const response = await fetch('https://countryinfoapi.com/api/countries');
-            ogCountries = await response.json();
-            setCountryList(ogCountries);
-
-            const uniqueRegions: any = [...new Set(ogCountries.map((country: any) => country.region))];
-            setRegionList(uniqueRegions);
-
+            listOfCountries = await response.json();
+            setCountryList(listOfCountries);
         } catch (error) {
             console.error(error);
         } finally {
@@ -39,15 +36,15 @@ const CountryProvider = ({ children }: Children) => {
     const sortCountries = (value: number) => {
         switch (value) {
             case Constants.SORTBY.POPULATION:
-                const sortByPopulationList = [...ogCountries].sort((a, b) => a.population - b.population).reverse()
+                const sortByPopulationList = [...listOfCountries].sort((a, b) => a.population - b.population).reverse()
                 setCountryList(sortByPopulationList);
                 break;
             case Constants.SORTBY.NAME:
-                const sortByNameList = [...ogCountries].sort((a, b) => { return (a.name > b.name ? 1 : (a.name === b.name ? 0 : -1)) })
+                const sortByNameList = [...listOfCountries].sort((a, b) => { return (a.name > b.name ? 1 : (a.name === b.name ? 0 : -1)) })
                 setCountryList(sortByNameList);
                 break;
             case Constants.SORTBY.AREA:
-                const sortByAreaList = [...ogCountries].sort((a, b) => a.area - b.area).reverse()
+                const sortByAreaList = [...listOfCountries].sort((a, b) => a.area - b.area).reverse()
                 setCountryList(sortByAreaList);
                 break;
 
@@ -55,16 +52,25 @@ const CountryProvider = ({ children }: Children) => {
     }
 
     const filterByRegion = (selectedRegions: string) => {
-        const countriesByRegion = [...ogCountries].filter((country) => selectedRegions.includes(country.region));
+        const countriesByRegion = [...listOfCountries].filter((country) => selectedRegions.includes(country.region));
         setCountryList(countriesByRegion);
     }
 
-    const filterByStatus = (status: string | null) => {
-        if (status) {
-            const countriesByStatus = [...ogCountries].filter((country) => status.includes(Constants.CHECKBOX.UN) ? country.unMember : !country.unMember);
+    const filterByStatus = (statuses: string[]) => {
+        if (statuses.length > 0) {
+            const countriesByStatus = [...listOfCountries].filter((country) => {
+                let includeCountry = false;
+                if (statuses.includes(Constants.CHECKBOX.UN)) {
+                    includeCountry = includeCountry || country.unMember;
+                }
+                if (statuses.includes(Constants.CHECKBOX.INDE)) {
+                    includeCountry = includeCountry || !country.unMember;
+                }
+                return includeCountry;
+            });
             setCountryList(countriesByStatus);
         } else {
-            setCountryList(ogCountries);
+            setCountryList(listOfCountries);
         }
     }
 

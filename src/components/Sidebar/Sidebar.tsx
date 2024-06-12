@@ -3,7 +3,7 @@ import Field from "../../shared/Field";
 import SelectDropdown from "../../shared/SelectDropdown";
 import Tags from "../../shared/Tags";
 import Checkbox from "../../shared/Checkbox";
-import { ChangeEvent, useContext } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { CountryContext } from "../../store";
 import { Constants } from "../../constants";
 
@@ -12,14 +12,18 @@ const SidebarWrapper = styled.div`
 `
 
 const Sidebar = () => {
+    const [selectedStatus, setSelectedStatus] = useState([]);
     const { filterByStatus } = useContext(CountryContext);
     const onCheckboxChange = (event: ChangeEvent) => {
+        let updatedStatuses: any = [...selectedStatus]
         const element = event.target as HTMLInputElement;
         if (element.checked) {
-            filterByStatus(element.id);
+            updatedStatuses.push(element.id);
         } else {
-            filterByStatus(null);
+            updatedStatuses = updatedStatuses.filter((s: any) => s !== element.id);
         }
+        filterByStatus(updatedStatuses);
+        setSelectedStatus(updatedStatuses);
     }
 
     return <>
