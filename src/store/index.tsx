@@ -9,6 +9,7 @@ export const CountryContext = createContext<CountryContextType>({
     sortCountries: () => { },
     filterByRegion: () => { },
     filterByStatus: () => { },
+    searchCountries: () => { },
 });
 
 let listOfCountries: any = [];
@@ -18,7 +19,7 @@ const CountryProvider = ({ children }: Children) => {
     const [countryList, setCountryList] = useState<Country[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const [regionList] = useState(listOfRegions);
+    const [regionList, setRegionList] = useState([]);
 
     const fetchCountries = async () => {
         setIsLoading(true);
@@ -29,6 +30,7 @@ const CountryProvider = ({ children }: Children) => {
         } catch (error) {
             console.error(error);
         } finally {
+            setRegionList(listOfRegions);
             setIsLoading(false);
         }
     };
@@ -59,14 +61,9 @@ const CountryProvider = ({ children }: Children) => {
     const filterByStatus = (statuses: string[]) => {
         if (statuses.length > 0) {
             const countriesByStatus = [...listOfCountries].filter((country) => {
-                let includeCountry = false;
-                if (statuses.includes(Constants.CHECKBOX.UN)) {
-                    includeCountry = includeCountry || country.unMember;
-                }
-                if (statuses.includes(Constants.CHECKBOX.INDE)) {
-                    includeCountry = includeCountry || !country.unMember;
-                }
-                return includeCountry;
+                if (statuses.includes(Constants.CHECKBOX.UN) && country.unMember) return true;
+                if (statuses.includes(Constants.CHECKBOX.INDE) && !country.unMember) return true;
+                return false;
             });
             setCountryList(countriesByStatus);
         } else {
@@ -74,11 +71,20 @@ const CountryProvider = ({ children }: Children) => {
         }
     }
 
+    const searchCountries = (searchQuery: string) => {
+        const searchResult = [...listOfCountries].filter((country) => {
+            return (country.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                country.region.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                country.subregion.toLowerCase().includes(searchQuery.toLowerCase()))
+        })
+        setCountryList(searchResult);
+    }
+
     useEffect(() => {
         fetchCountries();
     }, []);
 
-    return <CountryContext.Provider value={{ countryList, isLoading, regionList, sortCountries, filterByRegion, filterByStatus }}>
+    return <CountryContext.Provider value={{ countryList, isLoading, regionList, sortCountries, filterByRegion, filterByStatus, searchCountries }}>
         {children}
     </CountryContext.Provider>
 }
