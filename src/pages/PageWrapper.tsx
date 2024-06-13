@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import Hero from '../components/Hero/Hero'
 import { Container } from '../shared/Container'
-import { Children } from 'react'
 
 const Main = styled.div`
   position: relative;
