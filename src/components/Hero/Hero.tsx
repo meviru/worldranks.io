@@ -28,7 +28,7 @@ const Hero = () => {
             <HeroBg>
                 <Container>
                     <Logo>
-                        <LogoLink href="#">
+                        <LogoLink href="/">
                             <LogoImg src={logo} alt="World Ranks" title="World Ranks" />
                         </LogoLink>
                     </Logo>

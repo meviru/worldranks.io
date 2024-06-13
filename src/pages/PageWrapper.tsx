@@ -12,15 +12,22 @@ const MainContent = styled.div`
    border-radius: 16px;
    margin-bottom: 35px;
    border: 1px solid #282B30; 
-   background-color: #1C1D1F; 
+   background-color: #1C1D1F;
+   &.detail-page {
+        padding: 0;
+        width: 720px;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+   }
 `
 
-const PageWrapper = ({ children }: any) => {
+const PageWrapper = ({ children, isDetailPage }: any) => {
     return <>
         <Hero />
         <Main>
             <Container>
-                <MainContent>
+                <MainContent className={`${isDetailPage ? 'detail-page' : ''}`}>
                     {children}
                 </MainContent>
             </Container>
