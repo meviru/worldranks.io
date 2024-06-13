@@ -54,6 +54,7 @@ const TableRowGroup = styled.div``
 const Table = ({ countries, isLoading }: any) => {
     const navigate = useNavigate();
     const redirectToCountry = (country: any) => {
+        localStorage.setItem("countryDetails", JSON.stringify(country));
         navigate(`/country/${country.name.replace(/\s+/g, '-').toLowerCase()}`);
     }
 
