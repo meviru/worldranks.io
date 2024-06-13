@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Skeleton from "./Skeleton";
+import { useNavigate } from "react-router-dom";
 
 const Column = styled.div`
     flex: 1;
@@ -51,6 +52,11 @@ const FlagImg = styled.img`
 const TableRowGroup = styled.div``
 
 const Table = ({ countries, isLoading }: any) => {
+    const navigate = useNavigate();
+    const redirectToCountry = (country: any) => {
+        navigate(`/country/${country.name.replace(/\s+/g, '-').toLowerCase()}`);
+    }
+
     return <>
         <TableHeader>
             <Column className="column-flag">Flag</Column>
@@ -62,7 +68,7 @@ const Table = ({ countries, isLoading }: any) => {
         <TableRowGroup>
             {isLoading ? <Skeleton count={10} /> :
                 (countries && countries.length > 0) ? countries.map((country: any, index: number) => (
-                    <TableRow key={index}>
+                    <TableRow key={index} onClick={() => redirectToCountry(country)}>
                         <Column className="column-flag">
                             <FlagImg src={country.flag} alt={country.name} title={country.name} />
                         </Column>
