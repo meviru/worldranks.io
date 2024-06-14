@@ -17,6 +17,7 @@ export interface CountryContextType {
     filterByRegion: (value: string[]) => void;
     filterByStatus: (value: string[]) => void;
     searchCountries: (value: string) => void;
+    findNeighbours: (value: string[]) => void;
 }
 
 export interface CountryListContextType {
