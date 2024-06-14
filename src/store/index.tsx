@@ -10,6 +10,7 @@ export const CountryContext = createContext<CountryContextType>({
     filterByRegion: () => { },
     filterByStatus: () => { },
     searchCountries: () => { },
+    findNeighbours: () => { },
 });
 
 let listOfCountries: any = [];
@@ -24,7 +25,7 @@ const CountryProvider = ({ children }: Children) => {
     const fetchCountries = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch('https://countryinfoapi.com/api/countries');
+            const response = await fetch('https://restcountries.com/v3.1/all');
             listOfCountries = await response.json();
             setCountryList(listOfCountries);
         } catch (error) {
@@ -77,18 +78,22 @@ const CountryProvider = ({ children }: Children) => {
 
     const searchCountries = (searchQuery: string) => {
         const searchResult = [...listOfCountries].filter((country) => {
-            return (country.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            return (country.name.common.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 country.region.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                country.subregion.toLowerCase().includes(searchQuery.toLowerCase()))
+                country.subregion && country.subregion.toLowerCase().includes(searchQuery.toLowerCase()))
         })
         setCountryList(searchResult);
+    }
+
+    const findNeighbours = (borders: string[]) => {
+        return [...listOfCountries].filter((country) => borders.includes(country.cca3))
     }
 
     useEffect(() => {
         fetchCountries();
     }, []);
 
-    return <CountryContext.Provider value={{ countryList, isLoading, regionList, sortCountries, filterByRegion, filterByStatus, searchCountries }}>
+    return <CountryContext.Provider value={{ countryList, isLoading, regionList, sortCountries, filterByRegion, filterByStatus, searchCountries, findNeighbours }}>
         {children}
     </CountryContext.Provider>
 }

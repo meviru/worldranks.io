@@ -55,7 +55,7 @@ const Table = ({ countries, isLoading }: any) => {
     const navigate = useNavigate();
     const redirectToCountry = (country: any) => {
         localStorage.setItem("countryDetails", JSON.stringify(country));
-        navigate(`/country/${country.name.replace(/\s+/g, '-').toLowerCase()}`);
+        navigate(`/country/${country.name.common.replace(/\s+/g, '-').toLowerCase()}`);
     }
 
     return <>
@@ -71,9 +71,9 @@ const Table = ({ countries, isLoading }: any) => {
                 (countries && countries.length > 0) ? countries.map((country: any, index: number) => (
                     <TableRow key={index} onClick={() => redirectToCountry(country)}>
                         <Column className="column-flag">
-                            <FlagImg src={country.flag} alt={country.name} title={country.name} />
+                            <FlagImg src={country.flags.svg} alt={country.flags.alt} title={country.flags.alt} />
                         </Column>
-                        <Column>{country.name}</Column>
+                        <Column>{country.name.common}</Column>
                         <Column>{country.population}</Column>
                         <Column>{country.area}</Column>
                         <Column>{country.region}</Column>

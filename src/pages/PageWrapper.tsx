@@ -16,6 +16,7 @@ const MainContent = styled.div`
    &.detail-page {
         padding: 0;
         width: 720px;
+        color: #D2D5DA;
         max-width: 100%;
         margin-left: auto;
         margin-right: auto;
