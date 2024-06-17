@@ -6,6 +6,9 @@ import { CountryContext } from "../../store";
 const TableContainer = styled.div`
     flex-grow: 1;
     padding-left: 32px;
+    @media (max-width: 1023px) {
+        padding-left: 0;
+    }
 `
 
 const TableWrapper = () => {

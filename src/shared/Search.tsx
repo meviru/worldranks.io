@@ -9,6 +9,9 @@ const InputWrapper = styled.div`
     z-index: 2;
     width: 340px;
     max-width: 100%;
+    @media (max-width: 639px) {
+        width: 100%;
+    }
 `
 
 const SearchIcon = styled.span`

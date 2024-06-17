@@ -7,6 +7,9 @@ const CountryStats = styled.div`
     align-items: center; 
     background-color: #282B30;
     justify-content: space-between;
+    @media (max-width: 639px) {
+        width: 90%;
+    }
 `
 
 const Separator = styled.span`
@@ -21,6 +24,12 @@ const Separator = styled.span`
 const CountryStatsItem = styled.span`
     &:first-child {
         font-size: 14px;
+    }
+    @media (max-width: 639px) {
+        flex: 1;
+        &:last-child {
+            text-align: right;
+        }
     }
 `
 

@@ -21,6 +21,9 @@ const MainContent = styled.div`
         margin-left: auto;
         margin-right: auto;
    }
+    @media (max-width: 639px) {
+        padding: 24px;
+    }
 `
 
 const PageWrapper = ({ children, isDetailPage }: any) => {

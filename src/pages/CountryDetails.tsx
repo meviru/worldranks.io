@@ -41,12 +41,15 @@ const Flex = styled.div<{ $marginY?: number, $alignItems?: string, $justifyConte
     ${props => props.$marginY && `margin: ${props.$marginY}px 0;`}
     ${props => props.$alignItems && `align-items: ${props.$alignItems};`}
     ${props => props.$justifyContent && `justify-content: ${props.$justifyContent};`}
-    ${props => props.$colGap && `column-gap: ${props.$colGap}px`}
+    ${props => props.$colGap && `column-gap: ${props.$colGap}px;`}
+    @media (max-width: 639px) {
+        gap: 15px;
+    }
 `
 
 const CountryDetails = () => {
     const location = useLocation();
-    
+
     let storedCountry = localStorage.getItem("countryDetails");
     let countryDetails = storedCountry && JSON.parse(storedCountry);
     const [country, setCountry] = useState(countryDetails);

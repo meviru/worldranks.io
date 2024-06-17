@@ -9,6 +9,9 @@ import { Constants } from "../../constants";
 
 const SidebarWrapper = styled.div`
     width: 260px;
+    @media (max-width: 1023px) {
+        width: 100%;
+    }
 `
 
 const Sidebar = () => {

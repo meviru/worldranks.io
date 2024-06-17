@@ -7,12 +7,18 @@ import { Link } from "react-router-dom";
 const HeroBg = styled.div`
     height: 300px;
     background: url(${bgImage}) no-repeat center center/cover;
+    @media (max-width: 639px) {
+        height: 240px;
+    }
 `;
 
 const Logo = styled.div`
     display: flex;
     padding-top: 120px;
     justify-content: center;
+    @media (max-width: 639px) {
+        padding-top: 80px;
+    }
 `;
 
 const LogoImg = styled.img`

@@ -8,6 +8,7 @@ const TopbarContainer = styled.div`
 `
 const TopbarWrapper = styled.div`
     display: flex;
+    gap: 16px;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;

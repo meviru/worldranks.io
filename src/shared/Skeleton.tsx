@@ -8,12 +8,33 @@ const SkeletonWrapper = styled.div`
     & + & {
         margin-top: 24px;
     }
+    @media (max-width: 639px) {
+        display: block;   
+        padding: 15px;
+        min-height: 158px;
+        border-radius: 12px;
+        background-color: #282b30;
+    }
 `
 
 const SkeletonBlock = styled.div`
     flex: 1;
     &.skeleton-flag {
         flex: 0 0 95px;
+    }
+    @media (max-width: 639px) {
+        & + & {
+            margin-top: 14px;
+        }
+        &:nth-child(1),
+        &:nth-child(2) {
+            display: inline-flex;
+            vertical-align: middle;
+            margin-bottom: 15px;
+        }
+        &.skeleton-flag {
+            margin-right: 10px;
+        }
     }
 `
 
