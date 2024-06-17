@@ -86,7 +86,7 @@ const CountryProvider = ({ children }: Children) => {
     }
 
     const findNeighbours = (borders: string[]) => {
-        return [...listOfCountries].filter((country) => borders.includes(country.cca3))
+        return (borders && borders.length > 0) && [...listOfCountries].filter((country) => borders.includes(country.cca3))
     }
 
     useEffect(() => {

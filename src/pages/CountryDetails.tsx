@@ -2,8 +2,9 @@ import styled from "styled-components";
 import PageWrapper from "./PageWrapper";
 import Stats from "../shared/Stats";
 import ListItem from "../shared/ListItem";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CountryContext } from "../store";
+import { useLocation } from "react-router-dom";
 
 const Flag = styled.img`
     width: 100%;
@@ -44,8 +45,16 @@ const Flex = styled.div<{ $marginY?: number, $alignItems?: string, $justifyConte
 `
 
 const CountryDetails = () => {
-    const storedCountry = localStorage.getItem("countryDetails");
-    const country = storedCountry && JSON.parse(storedCountry);
+    const location = useLocation();
+    
+    let storedCountry = localStorage.getItem("countryDetails");
+    let countryDetails = storedCountry && JSON.parse(storedCountry);
+    const [country, setCountry] = useState(countryDetails);
+
+    useEffect(() => {
+        setCountry(countryDetails)
+    }, [location]);
+
     const { findNeighbours } = useContext(CountryContext);
 
     const saperateByComma = (object: any) => {
@@ -63,7 +72,7 @@ const CountryDetails = () => {
     return <>
         <PageWrapper isDetailPage={true}>
             <CountryFlag>
-                <Flag src={country.flags.svg} alt={country.flags.alt} />
+                <Flag src={country.flags.svg} title={country.name.common} alt={country.flags.alt} />
             </CountryFlag>
             <CountryName>{country.name.common}</CountryName>
             <CountryAltName>{country.name.official}</CountryAltName>
