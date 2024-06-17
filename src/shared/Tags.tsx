@@ -29,7 +29,7 @@ let includedRegions: any = ["Americas", "Africa", "Asia", "Europe"];
 
 const Tags = () => {
     const [selectedRegion, setSelectedRegion] = useState<any[]>([0, 2, 3, 4]);
-    const { regionList, filterByRegion, sortCountries } = useContext(CountryContext);
+    const { regionList, filterByRegion } = useContext(CountryContext);
 
 
     const onSelect = (region: string, index: number) => {
