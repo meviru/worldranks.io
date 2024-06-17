@@ -27,6 +27,7 @@ const CountryProvider = ({ children }: Children) => {
         try {
             const response = await fetch('https://restcountries.com/v3.1/all');
             listOfCountries = await response.json();
+            listOfCountries = listOfCountries.sort((a: any, b: any) => b.population - a.population);
             setCountryList(listOfCountries);
         } catch (error) {
             console.error(error);
@@ -43,7 +44,7 @@ const CountryProvider = ({ children }: Children) => {
                 setCountryList(sortByPopulationList);
                 break;
             case Constants.SORTBY.NAME:
-                const sortByNameList = [...listOfCountries].sort((a, b) => { return (a.name > b.name ? 1 : (a.name === b.name ? 0 : -1)) })
+                const sortByNameList = [...listOfCountries].sort((a, b) => { return (a.name.common > b.name.common ? 1 : (a.name.common === b.name.common ? 0 : -1)) })
                 setCountryList(sortByNameList);
                 break;
             case Constants.SORTBY.AREA:

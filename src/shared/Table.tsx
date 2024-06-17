@@ -71,7 +71,7 @@ const Table = ({ countries, isLoading }: any) => {
                 (countries && countries.length > 0) ? countries.map((country: any, index: number) => (
                     <TableRow key={index} onClick={() => redirectToCountry(country)}>
                         <Column className="column-flag">
-                            <FlagImg src={country.flags.svg} alt={country.flags.alt} title={country.flags.alt} />
+                            <FlagImg src={country.flags.svg} alt={country.flags.alt} title={country.name.common} />
                         </Column>
                         <Column>{country.name.common}</Column>
                         <Column>{country.population}</Column>
