@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { CountryContext } from "../store";
+import { Constants } from "../constants";
 
 const TagsWrapper = styled.div`
     display: flex;
@@ -29,7 +30,7 @@ let includedRegions: any = ["Americas", "Africa", "Asia", "Europe"];
 
 const Tags = () => {
     const [selectedRegion, setSelectedRegion] = useState<any[]>([0, 2, 3, 4]);
-    const { regionList, filterByRegion } = useContext(CountryContext);
+    const { regionList, filterByRegion, sortCountries } = useContext(CountryContext);
 
 
     const onSelect = (region: string, index: number) => {
